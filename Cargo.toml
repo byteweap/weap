@@ -1,0 +1,11 @@
+[package]
+name = "weap"
+version = "0.1.0"
+description = "一个简单实用的命令行小工具"
+authors = ["Art <weapon.artx@gmail.com>"]
+edition = "2024"
+
+[dependencies]
+clap = { version = "4.5.36", features = ["derive"] }
+uuid = { version = "1.7.0", features = ["v4"] }
+rand = "0.8.5"
