@@ -4,6 +4,12 @@ version = "0.1.0"
 description = "一个简单实用的命令行小工具"
 authors = ["Art <weapon.artx@gmail.com>"]
 edition = "2024"
+license = "MIT"
+repository = "https://github.com/byteweap/weap"
+homepage = "https://github.com/byteweap/weap"
+documentation = "https://docs.rs/weap"
+keywords = ["cli", "uuid", "password", "tools"]
+categories = ["command-line-utilities"]
 
 [dependencies]
 clap = { version = "4.5.36", features = ["derive"] }
