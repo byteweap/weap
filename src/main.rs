@@ -22,6 +22,8 @@ enum Commands {
     Pw(cmds::PwCmd),
     /// IP查询, 示例: weap ip
     Ip(cmds::IpCmd),
+    /// 系统信息查询, 示例: weap sys
+    Sys(cmds::SysCmd),
 }
 
 fn main() {
@@ -30,5 +32,6 @@ fn main() {
         Commands::Uuid(cmd) => cmd.execute(),
         Commands::Pw(cmd) => cmd.execute(),
         Commands::Ip(cmd) => cmd.execute(),
+        Commands::Sys(cmd) => cmd.execute(),
     }
 }
