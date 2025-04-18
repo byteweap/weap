@@ -1,6 +1,6 @@
 [package]
 name = "weap"
-version = "0.1.0"
+version = "0.1.1"
 description = "一个简单实用的命令行小工具"
 authors = ["Art <weapon.artx@gmail.com>"]
 edition = "2024"
