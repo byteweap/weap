@@ -20,6 +20,8 @@ enum Commands {
     Uuid(cmds::UuidCmd),
     /// 密码生成器, 示例: weap pw
     Pw(cmds::PwCmd),
+    /// IP查询, 示例: weap ip
+    Ip(cmds::IpCmd),
 }
 
 fn main() {
@@ -27,5 +29,6 @@ fn main() {
     match cli.command {
         Commands::Uuid(cmd) => cmd.execute(),
         Commands::Pw(cmd) => cmd.execute(),
+        Commands::Ip(cmd) => cmd.execute(),
     }
 }

@@ -3,6 +3,8 @@
 
 pub mod uuid;
 pub mod pw;
+pub mod ip;
 
 pub use uuid::UuidCmd;
 pub use pw::PwCmd; 
+pub use ip::IpCmd;
