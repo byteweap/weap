@@ -24,6 +24,8 @@ enum Commands {
     Ip(cmds::IpCmd),
     /// 系统信息查询, 示例: weap sys
     Sys(cmds::SysCmd),
+    /// 时间工具, 示例: weap time, weap time -t Asia/Shanghai, weap time -c 60
+    Time(cmds::TimeCmd),
 }
 
 fn main() {
@@ -33,5 +35,6 @@ fn main() {
         Commands::Pw(cmd) => cmd.execute(),
         Commands::Ip(cmd) => cmd.execute(),
         Commands::Sys(cmd) => cmd.execute(),
+        Commands::Time(cmd) => cmd.execute(),
     }
 }

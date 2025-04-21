@@ -1,6 +1,6 @@
 [package]
 name = "weap"
-version = "0.1.1"
+version = "0.1.2"
 description = "一个简单实用的命令行小工具"
 authors = ["Art <weapon.artx@gmail.com>"]
 edition = "2024"
@@ -18,3 +18,5 @@ rand = "0.8.5"
 reqwest = { version = "0.12.15", features = ["blocking", "json"] }
 serde = { version = "1.0.219", features = ["derive"] }
 sysinfo = "0.34.2"
+chrono = "0.4.40"
+chrono-tz = "0.10.3"
