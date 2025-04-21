@@ -8,19 +8,19 @@ use std::str::FromStr;
 pub struct TimeCmd {
     /// 显示指定时区的时间，例如: Asia/Shanghai, America/New_York
     #[arg(short, long)]
-    timezone: Option<String>,
+    pub timezone: Option<String>,
 
     /// 显示Unix时间戳
     #[arg(short, long)]
-    unix: bool,
+    pub unix: bool,
 
     /// 格式化时间，例如: %Y-%m-%d %H:%M:%S
     #[arg(short, long, default_value = "%Y-%m-%d %H:%M:%S")]
-    format: String,
+    pub format: String,
 
     /// 倒计时秒数
     #[arg(short, long)]
-    countdown: Option<u64>,
+    pub countdown: Option<u64>,
 }
 
 impl TimeCmd {

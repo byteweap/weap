@@ -52,15 +52,16 @@ impl std::fmt::Display for IpInfo {
 #[derive(Parser)]
 pub struct IpCmd {
     /// 指定IP地址, 默认为本机IP
-    ip: Option<String>,
+    pub ip: String,
 }
 
 impl IpCmd {
     /// 执行IP地址命令
     pub fn execute(&self) {
-        let url = match &self.ip {
-            Some(ip) => format!("http://ip-api.com/json/{}", ip),
-            None => "http://ip-api.com/json/".to_string(),
+        let url = if self.ip.trim().is_empty() {
+            "http://ip-api.com/json/".to_string()
+        } else {
+            format!("http://ip-api.com/json/{}", self.ip)
         };
         let resp = reqwest::blocking::get(url)
             .expect("请求失败")

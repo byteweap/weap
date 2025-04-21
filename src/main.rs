@@ -1,6 +1,6 @@
 use clap::{Parser, Subcommand};
 
-mod cmds;
+pub mod cmds;
 
 /// 命令行工具主结构
 #[derive(Parser)]
