@@ -4,7 +4,7 @@ mod cmds;
 
 /// 命令行工具主结构
 #[derive(Parser)]
-#[command(name = "weap")]
+#[command(name = env!("CARGO_PKG_NAME"))]
 #[command(version = env!("CARGO_PKG_VERSION"))]
 #[command(author = env!("CARGO_PKG_AUTHORS"))]
 #[command(about = format!("{}\n\nAuthor: {}", env!("CARGO_PKG_DESCRIPTION"), env!("CARGO_PKG_AUTHORS")))]
