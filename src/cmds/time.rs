@@ -30,6 +30,10 @@ impl TimeCmd {
             return;
         }
 
+        self.print_current_time();
+    }
+
+    fn print_current_time(&self) {
         let now_local: DateTime<Local> = Local::now();
         let now_utc: DateTime<Utc> = Utc::now();
 
@@ -70,10 +74,200 @@ impl TimeCmd {
                 remaining_secs % 60
             );
 
-            std::io::Write::flush(&mut std::io::stdout()).unwrap();
+            let _ = std::io::Write::flush(&mut std::io::stdout());
             std::thread::sleep(std::time::Duration::from_millis(100));
         }
 
         println!("\n倒计时结束!");
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_execute_default() {
+        let cmd = TimeCmd {
+            format: "%Y-%m-%d %H:%M:%S".to_string(),
+            unix: false,
+            timezone: None,
+            countdown: None,
+        };
+        cmd.execute();
+    }
+
+    #[test]
+    fn test_execute_with_unix() {
+        let cmd = TimeCmd {
+            format: "%Y-%m-%d %H:%M:%S".to_string(),
+            unix: true,
+            timezone: None,
+            countdown: None,
+        };
+        cmd.execute();
+    }
+
+    #[test]
+    fn test_execute_with_valid_timezone() {
+        let cmd = TimeCmd {
+            format: "%Y-%m-%d %H:%M:%S".to_string(),
+            unix: false,
+            timezone: Some("Asia/Shanghai".to_string()),
+            countdown: None,
+        };
+        cmd.execute();
+    }
+
+    #[test]
+    fn test_execute_with_invalid_timezone() {
+        let cmd = TimeCmd {
+            format: "%Y-%m-%d %H:%M:%S".to_string(),
+            unix: false,
+            timezone: Some("Invalid/Timezone".to_string()),
+            countdown: None,
+        };
+        cmd.execute();
+    }
+
+    #[test]
+    fn test_execute_with_all_options() {
+        let cmd = TimeCmd {
+            format: "%H:%M:%S".to_string(),
+            unix: true,
+            timezone: Some("America/New_York".to_string()),
+            countdown: None,
+        };
+        cmd.execute();
+    }
+
+    #[test]
+    fn test_execute_with_countdown() {
+        let cmd = TimeCmd {
+            format: "%Y-%m-%d %H:%M:%S".to_string(),
+            unix: false,
+            timezone: None,
+            countdown: Some(1),
+        };
+        cmd.execute();
+    }
+
+    #[test]
+    fn test_print_current_time_default_format() {
+        let cmd = TimeCmd {
+            format: "%Y-%m-%d %H:%M:%S".to_string(),
+            unix: false,
+            timezone: None,
+            countdown: None,
+        };
+        cmd.print_current_time();
+    }
+
+    #[test]
+    fn test_print_current_time_custom_format() {
+        let cmd = TimeCmd {
+            format: "%H:%M".to_string(),
+            unix: false,
+            timezone: None,
+            countdown: None,
+        };
+        cmd.print_current_time();
+    }
+
+    #[test]
+    fn test_print_current_time_with_unix() {
+        let cmd = TimeCmd {
+            format: "%Y-%m-%d %H:%M:%S".to_string(),
+            unix: true,
+            timezone: None,
+            countdown: None,
+        };
+        cmd.print_current_time();
+    }
+
+    #[test]
+    fn test_print_current_time_without_unix() {
+        let cmd = TimeCmd {
+            format: "%Y-%m-%d %H:%M:%S".to_string(),
+            unix: false,
+            timezone: None,
+            countdown: None,
+        };
+        cmd.print_current_time();
+    }
+
+    #[test]
+    fn test_print_current_time_with_shanghai() {
+        let cmd = TimeCmd {
+            format: "%Y-%m-%d %H:%M:%S".to_string(),
+            unix: false,
+            timezone: Some("Asia/Shanghai".to_string()),
+            countdown: None,
+        };
+        cmd.print_current_time();
+    }
+
+    #[test]
+    fn test_print_current_time_with_tokyo() {
+        let cmd = TimeCmd {
+            format: "%Y-%m-%d %H:%M:%S".to_string(),
+            unix: false,
+            timezone: Some("Asia/Tokyo".to_string()),
+            countdown: None,
+        };
+        cmd.print_current_time();
+    }
+
+    #[test]
+    fn test_print_current_time_with_new_york() {
+        let cmd = TimeCmd {
+            format: "%Y-%m-%d %H:%M:%S".to_string(),
+            unix: false,
+            timezone: Some("America/New_York".to_string()),
+            countdown: None,
+        };
+        cmd.print_current_time();
+    }
+
+    #[test]
+    fn test_print_current_time_with_invalid_tz() {
+        let cmd = TimeCmd {
+            format: "%Y-%m-%d %H:%M:%S".to_string(),
+            unix: false,
+            timezone: Some("Not/A/Real/Zone".to_string()),
+            countdown: None,
+        };
+        cmd.print_current_time();
+    }
+
+    #[test]
+    fn test_print_current_time_with_empty_tz() {
+        let cmd = TimeCmd {
+            format: "%Y-%m-%d %H:%M:%S".to_string(),
+            unix: false,
+            timezone: Some("".to_string()),
+            countdown: None,
+        };
+        cmd.print_current_time();
+    }
+
+    #[test]
+    fn test_run_countdown_1_second() {
+        let cmd = TimeCmd {
+            format: "%Y-%m-%d %H:%M:%S".to_string(),
+            unix: false,
+            timezone: None,
+            countdown: None,
+        };
+        cmd.run_countdown(1);
+    }
+
+    #[test]
+    fn test_tz_parsing() {
+        assert!(Tz::from_str("Asia/Shanghai").is_ok());
+        assert!(Tz::from_str("America/New_York").is_ok());
+        assert!(Tz::from_str("Europe/London").is_ok());
+        assert!(Tz::from_str("Invalid/Zone").is_err());
+        assert!(Tz::from_str("").is_err());
     }
 }
